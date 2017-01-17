@@ -26,18 +26,27 @@ body {
 <script src="cordova.js"></script>
 <script src="mapbox-gl.js"></script>
 <script>
+window.openDatabases = []; //to hold references to the multiple mbtile open databases
 document.addEventListener('deviceready', function() {
 
   var mapStyle = {
     "version": 8,
+    "Name": "Demo",
     "sources": {
       "naturalearth": {
         "type": "vector",
         "tiles": [
           "{z}/{x}/{y}"
         ],
-        "minzoom": 0,
-        "maxzoom": 8
+        "mbtiles": true
+      },
+      "naoverview": {
+        "type": "raster",
+        "tiles": [
+          "{z}/{x}/{y}"
+        ],
+        "tileSize": 256,
+        "mbtiles": true
       }
     },
     "layers": [
@@ -53,21 +62,32 @@ document.addEventListener('deviceready', function() {
         "type": "line",
         "source": "naturalearth",
         "source-layer": "ne_110m_admin_0_countries_lakes",
+        "minzoom": 0,
         "paint": {
           "line-color": "#ff0000"
         }
+      },
+      {
+        "id": "naoverview",
+        "type": "raster",
+        "source": "naoverview",
+        "minzoom": 2,
+        "layout": {
+            "visibility": "visible"
+        },
+        "paint": {}
       }
     ]
   };
 
   var map = new mapboxgl.Map({
     container: 'map',
-    center: [0, 0],
+    center: [-74.50, 40],
     zoom: 2,
     style: mapStyle,
     bearingSnap: 45
   });
-  map.addControl(new mapboxgl.Navigation());
+  map.addControl(new mapboxgl.NavigationControl());
 
 }, false);
 </script>
