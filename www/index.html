@@ -25,20 +25,13 @@
 <div id="map"></div>
 <script src="cordova.js"></script>
 <script>
-  function polyFormatUrl(r) {
-    var e = r.params.length ? "?" + r.params.join("&") : "";
-    console.log(r);
-    console.log(r.protocol + "://" + r.authority + r.path + e);
-    // return r.protocol + "://" + r.authority + r.path + e }
-    // правка
-    return r.protocol + ":///" + r.authority + r.path + e 
-  }
   // helpers
     // https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-file/
     // ios 
      // appname.app/ - applicationDirectory
     // android
       // file:///android_asset/ - applicationDirectory
+    // mapboxgl.accessToken = 'pk.eyJ1IjoiYXJ0dXJzYWYiLCJhIjoiY2l4dTFyb2U4MDAyaDMyb2o1YTVpaTlweSJ9.PRnZqKzceanUn2_ZmtXT6A';
 </script>
 <script src="mapbox-gl.js"></script>
 <script>
@@ -46,12 +39,8 @@
 // https://gist.github.com/anonymous/6867c1da9f5fcd4b04e8b1bc55deec06.js // maputnik style
 window.openDatabases = []; //to hold references to the multiple mbtile open databases
 document.addEventListener('deviceready', function() {
-  mapboxgl.accessToken = 'pk.eyJ1IjoiYXJ0dXJzYWYiLCJhIjoiY2l4dTFyb2U4MDAyaDMyb2o1YTVpaTlweSJ9.PRnZqKzceanUn2_ZmtXT6A';
-
-// use maputnik
-// mapbox studio
-
-  var mapbox = [
+  
+  var mapboxStyles = [
     {
       "id": "background",
       "type": "background",
@@ -3993,29 +3982,19 @@ document.addEventListener('deviceready', function() {
       }
     }
   ];
-  var android_sprite = "file:///android_asset/www/sprites/sprite";
-  var ios_sprite = "ios://appname.app/www/sprites/sprite"; 
-  var mapStyle = {
+  var androidSpritesUrl = "file:///android_asset/www/sprites/sprite";
+  var iosSpritesUrl = "ios://appname.app/www/sprites/sprite"; 
+  var mapStyleConfig = {
     "version": 8,
     "Name": "OSM Bright",
     // "metadata": metadata,
     "pitch": 0,
-    // "sprite": "https://openmaptiles.github.io/osm-bright-gl-style/sprite",
-
-    // "glyphs": "http://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
-    // "glyphs": "{fontstack}/{range}",
-    // "sprite": "/styles/osm-bright/sprite",
-    // "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
-    ////////////////
+    // cdn
+      // "sprite": "https://openmaptiles.github.io/osm-bright-gl-style/sprite",
+      // "glyphs": "http://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
+    // local
       "glyphs": "file:///android_asset/www/glyphs/{fontstack}/{range}.pbf",
-      // "sprite": location.origin + "android_asset/www/sprites/sprite",
-      "sprite": android_sprite,
-
-    // "sprite": location.origin + "/sprites/sprite"
-    // https://free.tilehosting.com/fonts/{fontstack}/{range}.pbf?key={key}
-    // "sprite": "file:///android_asset/www/sprites",
-    // "sprite": "https://www.mapbox.com/mapbox-gl-styles/sprites/sprite",
-    ////////////////
+      "sprite": androidSpritesUrl,
     "sources": {
       "openmaptiles": {
         "type": "vector",
@@ -4023,25 +4002,20 @@ document.addEventListener('deviceready', function() {
           "{z}/{x}/{y}"
         ],
         "mbtiles": true, // use mbtiles, modified mapbox.js
-        // "url": "https://free.tilehosting.com/data/v3.json?key={key}"
       },
     },
-    "layers": mapbox, // style layers
-    // "sprite": location.origin + "android_asset/www/sprites/sprite",
-    // "glyphs": "file:///android_asset/www/glyphs/{fontstack}/{range}.pbf",
+    "layers": mapboxStyles, // style layers
     "id": "ciw6czz2n00242kmg6hw20box"
   };
   var map = new mapboxgl.Map({
       container: 'map',
       center: [92.8967, 56.0230],
       zoom: 12,
-      style: mapStyle,
+      style: mapStyleConfig,
       bearingSnap: 0,
-      // bounds: [[92.1,55.8],[94.3,56.4]], // deprecated
       maxBounds: [[92.1,55.8],[94.3,56.4]],
     });
     map.addControl(new mapboxgl.NavigationControl());
-    // map.addControl(new mapboxgl.Navigation());
   }, false);
 </script>
 </body>
