@@ -1,0 +1,10 @@
+tileserver-gl-light krasnojarsk_russia.mbtiles
+http://osm2vectortiles.org/
+
+tileserver-gl-light naturalearth.mbtiles
+
+
+tileserver-gl-light krasnojarsk.mbtiles
+
+
+tileserver-gl-light openmaptiles.mbtiles

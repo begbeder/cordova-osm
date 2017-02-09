@@ -34,6 +34,7 @@
     // mapboxgl.accessToken = 'pk.eyJ1IjoiYXJ0dXJzYWYiLCJhIjoiY2l4dTFyb2U4MDAyaDMyb2o1YTVpaTlweSJ9.PRnZqKzceanUn2_ZmtXT6A';
 </script>
 <script src="mapbox-gl.js"></script>
+<script src="styleLayerKlo.js"></script>
 <script>
 
 // https://gist.github.com/anonymous/6867c1da9f5fcd4b04e8b1bc55deec06.js // maputnik style
@@ -3982,6 +3983,7 @@ document.addEventListener('deviceready', function() {
       }
     }
   ];
+  mapboxStyles  = styleLayerKlo;
   var androidSpritesUrl = "file:///android_asset/www/sprites/sprite";
   var iosSpritesUrl = "ios://appname.app/www/sprites/sprite"; 
   var mapStyleConfig = {
