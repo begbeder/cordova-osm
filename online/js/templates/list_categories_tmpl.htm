@@ -1,0 +1,13 @@
+		{{each items}}
+		<div class="list__item">
+			<article class="item-card" id="company${id}">
+			{{if hasSubsections == true }}
+				<a href="javascript:void(0)" id="${id}" onclick="showCatDetail(this,{section:${id}});"  class="item-card__name">${name}</a>
+				<div class="item-card__detail  list_cat" id="item-card__detail"></div>
+			{{else}}
+				<a href="javascript:void(0)" id="${id}" onclick="showCat({id: ${id}});"  class="item-card__name">${name}</a>
+				<div class="item-card__detail" id="item-card__detail"></div>
+			{{/if}}
+			</article>
+		</div>
+		{{/each}}

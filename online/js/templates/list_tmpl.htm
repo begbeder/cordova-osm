@@ -1,0 +1,21 @@
+		{{each(i, item) items}}
+		<div class="list__item">
+			<article class="item-card" id="company${id}">
+			{{if type == 'company'}}
+				<a href="javascript:void(0)" id="${id}" onclick="
+					showDetail(this
+						{{if $item.data.id_house > 0}}
+						, {id_house:${$item.data.id_house}}
+						{{else $item.data.id_street > 0}}
+						, {id_street:${$item.data.id_street}}
+						{{/if}});
+					" class="item-card__name ">${name}</a>
+			{{else type == 'section'}}
+				<a href="javascript:void(0)" id="${id}" onclick="showCat({id: ${id}});"  class="item-card__name ">${name}</a>
+			{{else}}
+				<a href="javascript:void(0)" id="${id}" onclick="showPopup({id: ${id}, type: '${type}', coords: [${coords}]});"  class="item-card__name">${title}</a>
+			{{/if}}
+				<div class="item-card__detail" id="item-card__detail"></div>
+			</article>
+		</div>
+		{{/each}}

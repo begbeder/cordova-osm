@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+/*.marker {
+    display: block;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+}*/
+#marker {
+    background-image: url('file:///D:/local/cordova_app/mapbox-gl-js-cordova-offline-example/online/mapbox/img/marker-icon__blue.png');
+    background-size: cover;
+    width: 34px;
+    height: 34px;
+    /*border-radius: 50%;*/
+    cursor: pointer;
+}
+#marker:hover,
+#marker.active {
+    transition: all 0.3s; 
+    background-image: url('file:///D:/local/cordova_app/mapbox-gl-js-cordova-offline-example/online/mapbox/img/marker-icon__red.png');
+}
+</style>
+
+<div id='map'></div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiYXJ0dXJzYWYiLCJhIjoiY2l4dTFyb2U4MDAyaDMyb2o1YTVpaTlweSJ9.PRnZqKzceanUn2_ZmtXT6A';
+
+var geojson = {
+    "type": "FeatureCollection",
+    "features": [
+        {
+          "geometry": {
+            "coordinates": [
+              92.8766,
+              56.03347
+            ],
+            "type": "Point"
+          },
+          "properties": {
+            "title": "1.26",
+            "description": "7km NE of Lake Arrowhead, California",
+            "message": "Foo",
+            "iconSize": [34, 34]
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              92.8732,
+              56.032
+            ],
+            "type": "Point"
+          },
+          "properties": {
+            "title": "1.87",
+            "description": "13km NNE of Pahala, Hawaii",
+            "message": "Bar",
+            "iconSize": [34, 34]
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              92.901463,
+              56.03516
+            ],
+            "type": "Point"
+          },
+          "properties": {
+            "title": "1.87",
+            "description": "13km NNE of Pahala, Hawaii",
+            "message": "Bar",
+            "iconSize": [34, 34]
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              92.9011896,
+              56.02628
+            ],
+            "type": "Point"
+          },
+          "properties": {
+            "title": "1.87",
+            "description": "13km NNE of Pahala, Hawaii",
+            "message": "Bar",
+            "iconSize": [34, 34]
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              92.901263,
+              56.03716
+            ],
+            "type": "Point"
+          },
+          "properties": {
+            "title": "1.87",
+            "description": "13km NNE of Pahala, Hawaii",
+            "message": "Bar",
+            "iconSize": [34, 34]
+          },
+          "type": "Feature"
+        },
+        {
+          "geometry": {
+            "coordinates": [
+              92.9011416,
+              56.02888
+            ],
+            "type": "Point"
+          },
+          "properties": {
+            "title": "1.87",
+            "description": "13km NNE of Pahala, Hawaii",
+            "message": "Bar",
+            "iconSize": [34, 34]
+          },
+          "type": "Feature"
+        }
+    ]
+};
+
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: [92.8967, 56.0230],
+    maxBounds: [[92.1,55.8],[94.3,56.4]],
+    zoom: 14
+});
+
+// add markers to map
+    // demo
+    // https://www.mapbox.com/help/demos/gl-store-locator/step-five.html#
+    // https://www.mapbox.com/help/building-a-store-locator/
+geojson.features.forEach(function(marker) {
+    var location = 'file:///D:/local/cordova_app/mapbox-gl-js-cordova-offline-example/online/mapbox/';
+    var iconRedSrc = '/img/marker-icon__red.png';
+    var iconBlueSrc = '/img/marker-icon__blue.png';
+    // create a DOM element for the marker
+    var el = document.createElement('div');
+        el.id = 'marker';
+
+    // el.className = 'marker';
+
+
+    el.addEventListener('click', function() {
+        console.log(marker)
+        // window.alert(marker.properties.message);
+        // openPopup()
+    });
+
+    var popup = new mapboxgl.Popup({ offset: [0, -17] })
+        .setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.description + '</p>')
+        .setLngLat(marker.geometry.coordinates)
+
+
+    // add marker to map
+    new mapboxgl.Marker(el, {offset: [-17,-17]})
+        .setLngLat(marker.geometry.coordinates)
+        .setPopup(popup)
+        .addTo(map);
+});
+</script>
+
+</body>
+</html>

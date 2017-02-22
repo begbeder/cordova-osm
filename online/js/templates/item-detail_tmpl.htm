@@ -1,0 +1,118 @@
+<!-- // <script id="item_detail_tmpl" type="text/x-jquery-tmpl"> -->
+	{{if  tel.length > 0}}
+	<div class="item-card__tel">
+		{{each tel}}
+			<div><i class="icon _card_bigtel"></i>
+			{{if i != ''}}
+			${i} : {{/if}}${masked}
+			</div>
+		{{/each}}
+	</div>
+	{{/if}}
+	{{if www.length + email.length > 0}}
+	<div class="item-card__links">
+		{{each www}}
+			<div><i class="icon _card_website"></i> <a href="//${href}">
+				{{if i == ""}}
+					${href}
+				{{else}}
+					${i}
+				{{/if}}
+			</a></div>
+		{{/each}}
+		{{each email}}
+			<div><i class="icon _card_email"></i> <a href="mailto:${href}">
+				{{if i == ""}}
+					${href}
+				{{else}}
+					${i}
+				{{/if}}
+			</a></div>
+		{{/each}}
+	</div>
+	{{/if}}
+	<div class="item-card__rubric">
+		<b>Рубрики:</b><br/>
+		{{each rubrics}}
+			<a href="${url}" onclick="showCat({id: ${id}});">${name}</a>{{if $index < $data.rubrics.length - 1}} / {{/if}}
+		{{/each}}
+	</div>
+	<!-- категории -->
+	<div class="item-card__offices">
+		{{each offices}}
+		<div class="item-card__offices__office">
+
+			<i class="icon  {{if in_object == true }} _card_adresred {{else}} _card_adres
+			{{/if}}"></i>
+			<div class="office__adres">
+				<a href="#" id="${id}" onclick="showMarker(${$data.id}, ${id})" >${adres}</a><br/>
+				${desc}<br/>
+			</div>
+			{{if tel.length > 0}}
+			<div class="office__tels">
+			{{each tel}}
+				<div>
+					<i class="icon _card_tel"></i>
+					{{if i != ''}}
+					${i} : {{/if}}${masked}
+				</div>
+			{{/each}}
+			</div>
+			{{/if}}
+			{{if email.length > 0}}
+			<div class="office__emails">
+			{{each email}}
+				<div><i class="icon _card_email"></i> <a href="${href}"> ${i} </a></div>
+			{{/each}}
+			</div>
+			{{/if}}
+			<div class="office__worktime">
+				{{if worktime[0].status_to == 'круглосуточно' }} 
+					<i class="icon _all_time"></i> круглосуточно
+				{{else}}
+					{{each worktime}}
+					{{if soonOver(status_to, status_on)}}
+					<i class="icon _card_worktime-closes"> скоро закроется
+					{{/if}}
+
+					<i class="icon {{if status_on == true}} _card_worktime-open {{else}} _card_worktime-close {{/if}}"></i> ${status} до ${status_to}. ${day}: ${t_from} - ${t_to} <span class="worktime_more">подробнее</span>
+			
+					{{/each}}
+					<div id="worktime-table_more" class="worktime-table_more">
+
+						<table class="office__worktime-more">
+							<tr>
+								{{each week}}
+								<th {{if today == true}}class="today"{{/if}}>${day}</th>	
+								{{/each}}
+							</tr>
+							<tr>
+								{{each week}}
+								<td {{if today == true}}class="today"{{/if}}>
+									{{if active == true}}
+									<time> ${t_from} </time>
+									<time> ${t_to} </time>
+									{{else}}
+									<time> X </time>
+									{{/if}}
+								</td>
+								{{/each}}
+							</tr>
+							{{if lunch == true}}
+							<tr>
+								{{each week}}
+								<td class="{{if today == true}}today {{/if}}lunch">
+									<time>${l_from}</time>
+									<time>${l_to}</time>
+								</td>
+								{{/each}}
+							</tr>
+							{{/if}}
+						</table>
+					</div>
+				{{/if}}
+			</div>
+		</div>
+		{{/each}}
+	</div>
+<!--// </script> 

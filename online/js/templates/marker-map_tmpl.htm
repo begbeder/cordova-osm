@@ -1,0 +1,23 @@
+<!-- {{each item}}
+	<div class="map-card">
+		<h1>${title}</h1>
+		<div class="map-card__h1desc">${title_desc}</div>
+		<div class="map-card__build"><i class="icon _mapcard_build"></i> ${type}</div>
+		<div class="map-card__offices"><i class="icon _mapcard_offices"></i> Организации в здании: 
+			<a href="#" class="offices_a" onclick="buildList(this)">${branches} организаций</a>
+		</div>
+	</div>
+{{/each}} -->
+
+
+{{each item}}
+	<div class="map-card">
+		<h1>${title}</h1>
+		{{if type == true}}
+			<div class="map-card__build"><i class="icon _mapcard_build"></i> ${type}</div>
+		{{/if}}
+		<div class="map-card__offices"><i class="icon _mapcard_offices"></i> Организации на улице: 
+			<a href="#" class="offices_a" onclick="showObjectDetail({id_street:${id_street}})">${branches} организаций</a>
+		</div>
+	</div>
+{{/each}}
