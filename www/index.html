@@ -19,10 +19,20 @@
     width: 100%;
     height: 100%;
   }
+  #features {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 150px;
+        overflow: auto;
+        background: rgba(255, 255, 255, 0.8);
+    }
 </style>
 </head>
 <body>
 <div id="map"></div>
+<pre id='features'></pre>
 <script src="cordova.js"></script>
 <script>
   // helpers
@@ -4018,6 +4028,29 @@ document.addEventListener('deviceready', function() {
       maxBounds: [[92.1,55.8],[94.3,56.4]],
     });
     map.addControl(new mapboxgl.NavigationControl());
+
+    // click on map
+      map.on('click', function (e) {
+        var features = map.queryRenderedFeatures(e.point);
+        document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
+        // console.log(features[0].properties);
+
+// https://www.npmjs.com/package/cordova-plugin-nativegeocoder
+        var lngLat = e.lngLat;
+        // console.log(lngLat.lng);
+        nativegeocoder.reverseGeocode(success, failure, lngLat.lat, lngLat.lng);
+        function success(result) {
+          var string = "The address is: \n\n" + result.street + " " + result.houseNumber + ", " + result.postalCode + " " + result.city + " in " + result.countryName + " - " +result.countryCode;
+          document.getElementById('features').innerHTML = string;
+          console.log(result);
+          // alert("The address is: \n\n" + result.street + " " + result.houseNumber + ", " + result.postalCode + " " + result.city + " in " + result.countryName + " - " +result.countryCode);
+        }
+        function failure(err) {
+          // alert(JSON.stringify(err));
+          document.getElementById('features').innerHTML = JSON.stringify(err);
+          console.log(err);
+        }
+      });
   }, false);
 </script>
 </body>

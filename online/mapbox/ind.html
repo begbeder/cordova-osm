@@ -38,11 +38,14 @@ var map = new mapboxgl.Map({
     maxBounds: [[92.1,55.8],[94.3,56.4]],
     zoom: 16
 });
-
 map.on('click', function (e) {
     var features = map.queryRenderedFeatures(e.point);
     document.getElementById('features').innerHTML = JSON.stringify(features, null, 2);
-    console.log(features[0].properties);
+
+    var lngLat = e.lngLat;
+    console.log(lngLat.lng);
+
+
 });
 </script>
 
